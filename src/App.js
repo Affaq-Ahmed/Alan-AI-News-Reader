@@ -7,6 +7,7 @@ const alanKey =
 
 const App = () => {
 	const [newsArticles, setNewsArticles] = useState([]);
+	const [activeArticle, setActiveArticle] = useState(-1);
 
 	useEffect(() => {
 		alanBtn({
@@ -14,8 +15,10 @@ const App = () => {
 			onCommand: (commandData) => {
 				console.log("commandData: ", commandData);
 				if (commandData.command === "newHeadlines") {
-					console.log("articles: ", commandData.articles);
 					setNewsArticles(commandData.articles);
+					setActiveArticle(-1);
+				} else if (commandData.command === "highlight") {
+					setActiveArticle((prevActiveArticle) => prevActiveArticle + 1);
 				}
 			},
 		});
@@ -23,8 +26,27 @@ const App = () => {
 
 	return (
 		<div>
-			<h1>Alan AI News Application</h1>
-			<NewsCards articles={newsArticles} />
+			<div
+				style={{
+					padding: "0 5%",
+					display: "flex",
+					justifyContent: "space-around",
+					alignItems: "center",
+					width: "100%",
+				}}
+			>
+				<img
+					src="https://voicebot.ai/wp-content/uploads/2019/10/alan.jpg"
+					alt="Alan AI Logo"
+					style={{
+						height: "27vmin",
+						borderRadius: "15%",
+						padding: "0 5%",
+						margin: "3% 0",
+					}}
+				/>
+			</div>
+			<NewsCards articles={newsArticles} activeArticle />
 		</div>
 	);
 };

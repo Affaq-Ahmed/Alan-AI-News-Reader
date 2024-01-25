@@ -8,10 +8,18 @@ import {
 	Typography,
 } from "@mui/material";
 import React from "react";
+import classNames from "classname";
 
-const NewsCard = ({ article, i }) => {
+const styles = {
+	activeCard: {
+		borderBottom: "10px solid #22289a",
+	},
+};
+
+const NewsCard = ({ article, i, activeArticle }) => {
 	return (
 		<Card
+			className={classNames(activeArticle === i ? styles.activeCard : null)}
 			style={{
 				display: "flex",
 				flexDirection: "column",
