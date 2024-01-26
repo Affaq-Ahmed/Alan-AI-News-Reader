@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import alanBtn from "@alan-ai/alan-sdk-web";
 import NewsCards from "./components/NewsCards/NewsCards";
+import wordsToNumbers from "words-to-numbers";
 
 const alanKey =
 	"bbd4163889ad863ecddbfbdf9a0a64752e956eca572e1d8b807a3e2338fdd0dc/stage";
@@ -19,6 +20,20 @@ const App = () => {
 					setActiveArticle(-1);
 				} else if (commandData.command === "highlight") {
 					setActiveArticle((prevActiveArticle) => prevActiveArticle + 1);
+				} else if (commandData.command === "open") {
+					const parsedNumber =
+						commandData.number.length > 2
+							? wordsToNumbers(commandData.number, { fuzzy: true })
+							: commandData.number;
+					if (Number.isNaN(parsedNumber)) {
+						return;
+					}
+					const article = commandData.articles[parsedNumber - 1];
+					if (article) {
+						window.open(article.url, "_blank");
+					}
+				} else if (commandData.command === "goBack") {
+					window.history.back();
 				}
 			},
 		});
@@ -46,7 +61,7 @@ const App = () => {
 					}}
 				/>
 			</div>
-			<NewsCards articles={newsArticles} activeArticle />
+			<NewsCards articles={newsArticles} activeArticle={activeArticle} />
 		</div>
 	);
 };

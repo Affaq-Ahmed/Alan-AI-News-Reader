@@ -8,7 +8,7 @@ import {
 	Typography,
 } from "@mui/material";
 import React from "react";
-import classNames from "classname";
+import clsx from "clsx";
 
 const styles = {
 	activeCard: {
@@ -17,9 +17,12 @@ const styles = {
 };
 
 const NewsCard = ({ article, i, activeArticle }) => {
+	console.log("article: ", activeArticle);
+	console.log("i: ", i);
+
 	return (
 		<Card
-			className={classNames(activeArticle === i ? styles.activeCard : null)}
+			className={clsx({ [styles.activeCard]: activeArticle === i })}
 			style={{
 				display: "flex",
 				flexDirection: "column",

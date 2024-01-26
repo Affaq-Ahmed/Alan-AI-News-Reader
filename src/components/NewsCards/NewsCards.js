@@ -38,13 +38,14 @@ const NewsCards = ({ articles, activeArticle }) => {
 						margin: 0,
 					}}
 				>
-					{infoCards.map((infoCard) => (
+					{infoCards.map((infoCard, index) => (
 						<Grid
 							item
 							xs={12}
 							sm={6}
 							md={4}
 							lg={3}
+							key={index}
 							style={{
 								display: "flex",
 								flexDirection: "column",
@@ -104,7 +105,11 @@ const NewsCards = ({ articles, activeArticle }) => {
 							key={index}
 							style={{ display: "flex" }}
 						>
-							<NewsCard article={article} activeArticle i={index} />
+							<NewsCard
+								article={article}
+								activeArticle={activeArticle}
+								i={index}
+							/>
 						</Grid>
 					))}
 				</Grid>
