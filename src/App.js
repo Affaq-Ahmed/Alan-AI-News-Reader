@@ -31,6 +31,7 @@ const App = () => {
 					const article = commandData.articles[parsedNumber - 1];
 					if (article) {
 						window.open(article.url, "_blank");
+						alanBtn().playText("Opening...");
 					}
 				} else if (commandData.command === "goBack") {
 					window.history.back();
